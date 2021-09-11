@@ -4,17 +4,6 @@ import java.util.List;
 import java.util.SortedSet;
 
 public final class Segment {
-  public Segment(Interval interval) {
-    interval_ = interval;
-  }
-
-  public Segment(Segment leftChild, Segment rightChild) {
-    interval_ = leftChild.interval_.span(rightChild.interval_);
-    leftChild_ = leftChild;
-    rightChild_ = rightChild;
-    updateChildrenLength();
-  }
-
   public static Segment newTree(SortedSet<Double> bounds) {
     if (bounds.isEmpty()) {
       return null;
@@ -41,6 +30,17 @@ public final class Segment {
       segments = parentSegments;
     }
     return segments.get(0);
+  }
+
+  private Segment(Interval interval) {
+    interval_ = interval;
+  }
+
+  private Segment(Segment leftChild, Segment rightChild) {
+    interval_ = leftChild.interval_.span(rightChild.interval_);
+    leftChild_ = leftChild;
+    rightChild_ = rightChild;
+    updateChildrenLength();
   }
 
   public void add(Interval interval) {
