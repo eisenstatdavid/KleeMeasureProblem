@@ -20,7 +20,7 @@ public final class Event<E> implements Comparable<Event<E>> {
   }
 
   public int compareTo(Event<E> that) {
-    return Double.compare(x_, that.x_);
+    return Double.compare(x(), that.x());
   }
 
   private double x_;
