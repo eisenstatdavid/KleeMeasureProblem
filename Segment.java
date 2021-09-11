@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
 
@@ -15,12 +16,15 @@ public final class Segment {
   }
 
   public static Segment newTree(SortedSet<Double> bounds) {
+    if (bounds.isEmpty()) {
+      return null;
+    }
     List<Segment> segments = new ArrayList<Segment>();
-    double min = Double.NaN;
-    for (double max : bounds) {
-      if (!Double.isNaN(min)) {
-        segments.add(new Segment(new Interval(min, max)));
-      }
+    Iterator<Double> bounds_iterator = bounds.iterator();
+    double min = bounds_iterator.next();
+    while (bounds_iterator.hasNext()) {
+      double max = bounds_iterator.next();
+      segments.add(new Segment(new Interval(min, max)));
       min = max;
     }
     if (segments.isEmpty()) {
